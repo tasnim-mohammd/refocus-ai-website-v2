@@ -99,7 +99,7 @@ export function Hero() {
         <img
           src={heroBg}
           alt=""
-          className="absolute inset-0 -z-20 size-full object-cover object-[65%_center] motion-safe:animate-[heroZoom_18s_ease-out_both]"
+          className="absolute inset-0 -z-20 size-full object-cover object-[86%_center] lg:object-[center_38%] motion-safe:animate-[heroZoom_18s_ease-out_both]"
         />
         {/* legibility overlays: dark on the text side, opening up towards the people */}
         <div
@@ -148,10 +148,10 @@ export function Hero() {
               <div className="absolute top-0 right-[40px] motion-safe:animate-[fadeUp_.9s_.4s_ease_both]">
                 <StatusChip className="motion-safe:animate-[float_7s_ease-in-out_-2s_infinite]" />
               </div>
-              <div className="absolute top-[90px] left-[40px] motion-safe:animate-[fadeUp_.9s_.55s_ease_both]">
+              <div className="absolute top-[70px] left-0 motion-safe:animate-[fadeUp_.9s_.55s_ease_both]">
                 <ProjectsCard className="motion-safe:animate-[float_6s_ease-in-out_infinite]" />
               </div>
-              <div className="absolute right-0 bottom-0 w-[320px] motion-safe:animate-[fadeUp_.9s_.7s_ease_both]">
+              <div className="absolute bottom-0 left-[40px] w-[300px] motion-safe:animate-[fadeUp_.9s_.7s_ease_both]">
                 <PredictiveEngine className="motion-safe:animate-[float_8s_ease-in-out_-1s_infinite]" />
               </div>
             </div>
