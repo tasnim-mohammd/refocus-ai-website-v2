@@ -7,17 +7,17 @@ const buttonStyles: Record<ButtonVariant, { root: string; circle: string }> = {
   // Navy body with a blue→violet gradient outline and a soft inner highlight.
   dark: {
     root: "border border-transparent text-white [background:linear-gradient(#0A1630,#0A1630)_padding-box,linear-gradient(135deg,#60A5FA,#4F46E5_50%,#A78BFA)_border-box] shadow-[inset_0_1px_0_rgb(255_255_255/0.12),0_12px_30px_-10px_rgb(10_22_48/0.55)] hover:shadow-[inset_0_1px_0_rgb(255_255_255/0.12),0_16px_40px_-10px_rgb(79_70_229/0.55)]",
-    circle: "bg-white text-navy",
+    circle: "bg-white/10 text-white ring-1 ring-white/20 group-hover:bg-white group-hover:text-navy group-hover:ring-white",
   },
   // Brand gradient with a glassy top highlight and coloured glow.
   accent: {
     root: "text-white bg-[linear-gradient(135deg,#2563EB,#4F46E5_55%,#7C3AED)] shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_14px_32px_-10px_rgb(79_70_229/0.6)] hover:shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_20px_44px_-10px_rgb(79_70_229/0.75)]",
-    circle: "bg-white text-[#4F46E5]",
+    circle: "bg-white/15 text-white ring-1 ring-white/30 group-hover:bg-white group-hover:text-[#4F46E5] group-hover:ring-white",
   },
   // Frosted glass.
   light: {
     root: "text-ink border border-white/80 bg-white/60 backdrop-blur-xl shadow-[inset_0_1px_0_rgb(255_255_255/0.9),0_10px_30px_-14px_rgb(10_22_48/0.25)] hover:bg-white/80",
-    circle: "bg-navy text-white",
+    circle: "bg-ink/[0.05] text-ink ring-1 ring-ink/10 group-hover:bg-navy group-hover:text-white group-hover:ring-navy",
   },
 };
 
@@ -45,7 +45,9 @@ export function Button({
       />
       <span>{children}</span>
       {/* arrow slides out top-right while a new one slides in */}
-      <span className={`relative grid size-10 shrink-0 place-items-center overflow-hidden rounded-full ${s.circle}`}>
+      <span
+        className={`relative grid size-10 shrink-0 place-items-center overflow-hidden rounded-full transition-colors duration-300 ${s.circle}`}
+      >
         <ArrowUpRight
           className="absolute size-[18px] transition-transform duration-500 ease-[cubic-bezier(.2,.8,.2,1)] group-hover:translate-x-6 group-hover:-translate-y-6"
           strokeWidth={2.2}
