@@ -47,13 +47,26 @@ function useScroll() {
   return state;
 }
 
-/** A floating "island" — transparent at the top of the page, solid once scrolled. */
-const island = (scrolled: boolean) =>
-  `rounded-full border backdrop-blur-2xl transition-all duration-500 ${
+/**
+ * Frosted-glass island. Heavy blur + saturation keep text readable over any content,
+ * while the tint stays light so the page shows through softly.
+ */
+const glassIsland = (scrolled: boolean) =>
+  `relative rounded-full border border-white/70 backdrop-blur-[40px] backdrop-saturate-[1.8] transition-all duration-500 shadow-[inset_0_1px_0_rgb(255_255_255/0.95),inset_0_-1px_0_rgb(255_255_255/0.35)] ${
     scrolled
-      ? "border-line bg-white/[0.97] shadow-[0_12px_32px_-12px_rgb(10_22_48/0.25)]"
-      : "border-white/80 bg-white/60 shadow-[0_12px_32px_-16px_rgb(10_22_48/0.12)]"
+      ? "bg-white/65 shadow-[inset_0_1px_0_rgb(255_255_255/0.95),inset_0_-1px_0_rgb(255_255_255/0.35),0_16px_40px_-14px_rgb(10_22_48/0.28)]"
+      : "bg-white/35 shadow-[inset_0_1px_0_rgb(255_255_255/0.95),inset_0_-1px_0_rgb(255_255_255/0.35),0_12px_32px_-16px_rgb(10_22_48/0.14)]"
   }`;
+
+/** Glossy sheen across the top half of a glass island. */
+function Sheen() {
+  return (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b from-white/60 via-white/10 to-transparent"
+    />
+  );
+}
 
 function DesktopNav({ active, scrolled, progress }: { active: string; scrolled: boolean; progress: number }) {
   const listRef = useRef<HTMLUListElement>(null);
@@ -77,11 +90,12 @@ function DesktopNav({ active, scrolled, progress }: { active: string; scrolled: 
   }, [measure]);
 
   return (
-    <nav aria-label="Main" className={`relative hidden p-1.5 lg:block ${island(scrolled)}`}>
+    <nav aria-label="Main" className={`hidden p-1.5 lg:block ${glassIsland(scrolled)}`}>
+      <Sheen />
       <ul ref={listRef} className="relative flex items-center" onMouseLeave={() => setHovered(null)}>
         <span
           aria-hidden
-          className={`absolute inset-y-0 rounded-full bg-navy shadow-[0_6px_16px_-6px_rgb(10_22_48/0.6)] transition-[left,width,opacity] duration-500 ease-[cubic-bezier(.2,.8,.2,1)] ${
+          className={`absolute inset-y-0 rounded-full bg-[linear-gradient(180deg,#1B2B57,#0A1630)] shadow-[inset_0_1px_0_rgb(255_255_255/0.18),0_8px_20px_-8px_rgb(10_22_48/0.7)] transition-[left,width,opacity] duration-500 ease-[cubic-bezier(.2,.8,.2,1)] ${
             pill.ready ? "opacity-100" : "opacity-0"
           }`}
           style={{ left: pill.left, width: pill.width }}
@@ -101,7 +115,7 @@ function DesktopNav({ active, scrolled, progress }: { active: string; scrolled: 
                 onBlur={() => setHovered(null)}
                 aria-current={id === active ? "true" : undefined}
                 className={`relative block rounded-full px-5 py-2.5 text-[14.5px] font-medium transition-colors duration-300 ${
-                  on ? "text-white" : "text-muted hover:text-ink"
+                  on ? "text-white" : "text-ink/70 hover:text-ink"
                 }`}
               >
                 {l.label}
@@ -207,7 +221,6 @@ export function Header() {
     document.documentElement.style.overflow = open ? "hidden" : "";
   }, [open]);
 
-  const solid = scrolled || open;
 
   return (
     <>
@@ -219,9 +232,14 @@ export function Header() {
             href="#home"
             aria-label="Refocus AI home"
             onClick={() => setOpen(false)}
-            className={`flex h-[52px] w-fit items-center px-5 md:h-14 md:px-6 ${island(solid)}`}
+            className={`flex h-[52px] w-fit items-center md:h-14 ${
+              scrolled && !open
+                ? `px-5 md:px-6 ${glassIsland(true)}`
+                : "border border-transparent px-1 transition-all duration-500"
+            }`}
           >
-            <img src={logo} alt="Refocus AI" className="h-[17px] w-auto md:h-5" />
+            {scrolled && !open && <Sheen />}
+            <img src={logo} alt="Refocus AI" className="relative h-[18px] w-auto md:h-[22px]" />
           </a>
 
           <DesktopNav active={active} scrolled={scrolled} progress={progress} />
@@ -237,7 +255,7 @@ export function Header() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="flex h-[52px] items-center gap-3 justify-self-end rounded-full bg-navy pr-2 pl-5 text-[14px] font-semibold text-white shadow-[0_12px_32px_-12px_rgb(10_22_48/0.5)] lg:hidden"
+            className="flex h-[52px] items-center gap-3 justify-self-end rounded-full border border-transparent pr-1.5 pl-5 text-[14px] font-semibold text-white [background:linear-gradient(#0A1630,#0A1630)_padding-box,linear-gradient(135deg,#60A5FA,#4F46E5_50%,#A78BFA)_border-box] shadow-[inset_0_1px_0_rgb(255_255_255/0.12),0_12px_32px_-12px_rgb(10_22_48/0.55)] lg:hidden"
           >
             <span>{open ? "Close" : "Menu"}</span>
             <span className="relative grid size-9 place-items-center rounded-full bg-white">
