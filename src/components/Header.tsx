@@ -262,6 +262,13 @@ export function Header() {
     <>
       <MobileMenu open={open} active={active} onClose={() => setOpen(false)} />
       <header className="fixed inset-x-0 top-4 z-50 px-4 md:top-6">
+        {/* progressive blur band: content scrolling under the header softens and fades */}
+        <div
+          aria-hidden
+          className={`pointer-events-none absolute inset-x-0 -top-4 -z-10 h-[104px] backdrop-blur-xl transition-[opacity,background-color] duration-500 [mask-image:linear-gradient(to_bottom,black_55%,transparent)] md:-top-6 md:h-[124px] ${
+            scrolled && !open ? "opacity-100" : "opacity-0"
+          } ${dark ? "bg-[rgb(10_22_48/0.35)]" : "bg-[rgb(251_252_254/0.7)]"}`}
+        />
         <div className="mx-auto grid max-w-[1200px] grid-cols-[1fr_auto] items-center gap-3 lg:grid-cols-[1fr_auto_1fr]">
           {/* logo island */}
           <a

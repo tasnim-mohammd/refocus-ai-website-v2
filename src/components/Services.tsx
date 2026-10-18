@@ -30,7 +30,15 @@ export function Services() {
                     loading="lazy"
                     className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
-                  <span className="absolute top-4 left-4 rounded-full bg-navy/30 px-3 py-1.5 text-[13px] font-semibold tracking-[0.14em] text-white ring-1 ring-white/30 backdrop-blur-md [text-shadow:0_1px_6px_rgb(0_0_0/0.35)] shadow-[inset_0_1px_0_rgb(255_255_255/0.25),0_6px_18px_-6px_rgb(0_0_0/0.45)]">
+                  <span
+                    className={`absolute top-5 left-6 font-display text-[22px] font-semibold tracking-[0.02em] text-white ${
+                      [
+                        "[text-shadow:0_1px_2px_rgb(0_0_0/0.45),0_4px_16px_rgb(0_0_0/0.45)]",
+                        "[text-shadow:0_1px_2px_rgb(10_22_48/0.5),0_4px_18px_rgb(10_22_48/0.6)]",
+                        "[text-shadow:0_1px_3px_rgb(0_0_0/0.6),0_2px_10px_rgb(0_0_0/0.55),0_6px_28px_rgb(0_0_0/0.5)]",
+                      ][i]
+                    }`}
+                  >
                     0{i + 1}
                   </span>
                   {dark && (
