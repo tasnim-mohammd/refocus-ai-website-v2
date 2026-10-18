@@ -52,7 +52,7 @@ export function WhyChoose() {
                 <Sparkles className="size-[18px]" strokeWidth={1.8} />
               </span>
               <span className="text-[15px] font-medium text-ink">
-                Real business results — faster, smarter, with less risk.
+                Real business results, delivered faster, smarter and with less risk.
               </span>
             </figcaption>
           </figure>
@@ -91,10 +91,28 @@ export function WhyChoose() {
           </article>
 
           {/* Enterprise Security */}
-          <article className="flex min-h-[240px] flex-col justify-between gap-10 rounded-[28px] bg-brand-gradient p-7 md:min-h-[300px] md:rounded-[32px] md:p-10">
-            <span className="grid size-[52px] place-items-center rounded-[18px] bg-white/15 text-white md:size-14">
-              <ShieldCheck className="size-6" strokeWidth={1.8} />
-            </span>
+          <article className="relative isolate flex min-h-[260px] flex-col justify-between gap-10 overflow-hidden rounded-[28px] bg-brand-gradient p-7 md:min-h-[300px] md:rounded-[32px] md:p-10">
+            {/* emblem: shield with pulsing rings */}
+            <div aria-hidden className="pointer-events-none absolute top-1/2 right-[-40px] -z-10 -translate-y-[72%] md:right-[-30px] md:-translate-y-[62%]">
+              <div className="relative grid size-[220px] place-items-center md:size-[260px]">
+                {[1, 0.78, 0.56].map((scale, i) => (
+                  <span
+                    key={scale}
+                    style={{ transform: `scale(${scale})`, animationDelay: `${i * 0.6}s` }}
+                    className="absolute inset-0 rounded-full border border-white/25 motion-safe:animate-[ringPulse_3.6s_ease-in-out_infinite]"
+                  />
+                ))}
+                <span className="absolute inset-[34%] rounded-full bg-white/15 shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_20px_40px_-10px_rgb(30_20_90/0.5)] backdrop-blur-sm" />
+                <ShieldCheck className="relative size-12 text-white md:size-14" strokeWidth={1.4} />
+                <span className="absolute top-[18%] right-[22%] size-2 rounded-full bg-white/80 shadow-[0_0_12px_rgb(255_255_255/0.9)]" />
+                <span className="absolute bottom-[24%] left-[16%] size-1.5 rounded-full bg-white/60" />
+              </div>
+            </div>
+            <div
+              aria-hidden
+              className="absolute inset-0 -z-20 opacity-30 [background-image:radial-gradient(rgb(255_255_255/0.35)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:linear-gradient(to_left,black,transparent_70%)]"
+            />
+            <span aria-hidden />
             <div>
               <h3 className="font-display text-[26px] font-semibold tracking-[-0.02em] text-white md:text-[28px]">
                 Enterprise Security

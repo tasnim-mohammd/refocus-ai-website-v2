@@ -86,6 +86,16 @@
   }
 }
 
+@keyframes ringPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 @keyframes bar {
   from {
     transform: scaleY(0.55);
