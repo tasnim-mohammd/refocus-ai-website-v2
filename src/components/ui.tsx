@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 
-type ButtonVariant = "dark" | "accent" | "light";
+type ButtonVariant = "dark" | "accent" | "light" | "glass";
 
 const buttonStyles: Record<ButtonVariant, { root: string; circle: string }> = {
   // Navy body with a blue→violet gradient outline and a soft inner highlight.
@@ -13,6 +13,11 @@ const buttonStyles: Record<ButtonVariant, { root: string; circle: string }> = {
   accent: {
     root: "text-white bg-[linear-gradient(135deg,#2563EB,#4F46E5_55%,#7C3AED)] shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_14px_32px_-10px_rgb(79_70_229/0.6)] hover:shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_20px_44px_-10px_rgb(79_70_229/0.75)]",
     circle: "bg-white/15 text-white ring-1 ring-white/30 group-hover:bg-white group-hover:text-[#4F46E5] group-hover:ring-white",
+  },
+  // Dark frosted glass, for use on photos and dark sections.
+  glass: {
+    root: "text-white border border-white/25 bg-white/10 backdrop-blur-xl shadow-[inset_0_1px_0_rgb(255_255_255/0.2)] hover:bg-white/15",
+    circle: "bg-white/10 text-white ring-1 ring-white/20 group-hover:bg-white group-hover:text-navy group-hover:ring-white",
   },
   // Frosted glass.
   light: {

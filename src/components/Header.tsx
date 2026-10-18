@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import logo from "../assets/logos/refocus-logo.png";
+import logoWhite from "../assets/logos/refocus-logo-white.png";
 import { CONTACT, NAV_LINKS } from "../content";
 import { Button } from "./ui";
 
@@ -34,11 +35,14 @@ function useActiveSection() {
 }
 
 function useScroll() {
-  const [state, setState] = useState({ scrolled: false, progress: 0 });
+  const [state, setState] = useState({ scrolled: false, progress: 0, overDark: true });
   useEffect(() => {
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      setState({ scrolled: window.scrollY > 24, progress: max > 0 ? Math.min(1, window.scrollY / max) : 0 });
+      // The header sits on the dark photo hero until the hero's bottom edge passes under it.
+      const stage = document.getElementById("hero-stage");
+      const overDark = stage ? stage.getBoundingClientRect().bottom > 96 : false;
+      setState({ scrolled: window.scrollY > 24, progress: max > 0 ? Math.min(1, window.scrollY / max) : 0, overDark });
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -51,24 +55,40 @@ function useScroll() {
  * Frosted-glass island. Heavy blur + saturation keep text readable over any content,
  * while the tint stays light so the page shows through softly.
  */
-const glassIsland = (scrolled: boolean) =>
-  `relative rounded-full border border-white/70 backdrop-blur-[40px] backdrop-saturate-[1.8] transition-all duration-500 shadow-[inset_0_1px_0_rgb(255_255_255/0.95),inset_0_-1px_0_rgb(255_255_255/0.35)] ${
+const glassIsland = (scrolled: boolean, dark = false) =>
+  dark
+    ? `relative rounded-full border border-white/20 backdrop-blur-[40px] backdrop-saturate-[1.6] transition-all duration-500 shadow-[inset_0_1px_0_rgb(255_255_255/0.25),0_12px_32px_-16px_rgb(0_0_0/0.4)] ${
+        scrolled ? "bg-[rgb(10_22_48/0.6)]" : "bg-white/10"
+      }`
+    : `relative rounded-full border border-white/70 backdrop-blur-[40px] backdrop-saturate-[1.8] transition-all duration-500 shadow-[inset_0_1px_0_rgb(255_255_255/0.95),inset_0_-1px_0_rgb(255_255_255/0.35)] ${
     scrolled
       ? "bg-white/65 shadow-[inset_0_1px_0_rgb(255_255_255/0.95),inset_0_-1px_0_rgb(255_255_255/0.35),0_16px_40px_-14px_rgb(10_22_48/0.28)]"
       : "bg-white/35 shadow-[inset_0_1px_0_rgb(255_255_255/0.95),inset_0_-1px_0_rgb(255_255_255/0.35),0_12px_32px_-16px_rgb(10_22_48/0.14)]"
   }`;
 
 /** Glossy sheen across the top half of a glass island. */
-function Sheen() {
+function Sheen({ dark = false }: { dark?: boolean }) {
   return (
     <span
       aria-hidden
-      className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b from-white/60 via-white/10 to-transparent"
+      className={`pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b to-transparent ${
+        dark ? "from-white/15 via-white/[0.03]" : "from-white/60 via-white/10"
+      }`}
     />
   );
 }
 
-function DesktopNav({ active, scrolled, progress }: { active: string; scrolled: boolean; progress: number }) {
+function DesktopNav({
+  active,
+  scrolled,
+  progress,
+  dark,
+}: {
+  active: string;
+  scrolled: boolean;
+  progress: number;
+  dark: boolean;
+}) {
   const listRef = useRef<HTMLUListElement>(null);
   const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
   const [hovered, setHovered] = useState<string | null>(null);
@@ -90,12 +110,16 @@ function DesktopNav({ active, scrolled, progress }: { active: string; scrolled: 
   }, [measure]);
 
   return (
-    <nav aria-label="Main" className={`hidden p-1.5 lg:block ${glassIsland(scrolled)}`}>
-      <Sheen />
+    <nav aria-label="Main" className={`hidden p-1.5 lg:block ${glassIsland(scrolled, dark)}`}>
+      <Sheen dark={dark} />
       <ul ref={listRef} className="relative flex items-center" onMouseLeave={() => setHovered(null)}>
         <span
           aria-hidden
-          className={`absolute inset-y-0 rounded-full bg-[linear-gradient(180deg,#1B2B57,#0A1630)] shadow-[inset_0_1px_0_rgb(255_255_255/0.18),0_8px_20px_-8px_rgb(10_22_48/0.7)] transition-[left,width,opacity] duration-500 ease-[cubic-bezier(.2,.8,.2,1)] ${
+          className={`absolute inset-y-0 rounded-full transition-[left,width,opacity,background-color] duration-500 ${
+            dark
+              ? "bg-white shadow-[0_8px_20px_-8px_rgb(0_0_0/0.5)]"
+              : "bg-[linear-gradient(180deg,#1B2B57,#0A1630)] shadow-[inset_0_1px_0_rgb(255_255_255/0.18),0_8px_20px_-8px_rgb(10_22_48/0.7)]"
+          } ease-[cubic-bezier(.2,.8,.2,1)] ${
             pill.ready ? "opacity-100" : "opacity-0"
           }`}
           style={{ left: pill.left, width: pill.width }}
@@ -115,7 +139,13 @@ function DesktopNav({ active, scrolled, progress }: { active: string; scrolled: 
                 onBlur={() => setHovered(null)}
                 aria-current={id === active ? "true" : undefined}
                 className={`relative block rounded-full px-5 py-2.5 text-[14.5px] font-medium transition-colors duration-300 ${
-                  on ? "text-white" : "text-ink/70 hover:text-ink"
+                  dark
+                    ? on
+                      ? "text-navy"
+                      : "text-white/80 hover:text-white"
+                    : on
+                      ? "text-white"
+                      : "text-ink/70 hover:text-ink"
                 }`}
               >
                 {l.label}
@@ -208,7 +238,8 @@ function MobileMenu({ open, active, onClose }: { open: boolean; active: string; 
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const { scrolled, progress } = useScroll();
+  const { scrolled, progress, overDark } = useScroll();
+  const dark = overDark && !open;
   const active = useActiveSection();
 
   useEffect(() => {
@@ -234,15 +265,15 @@ export function Header() {
             onClick={() => setOpen(false)}
             className={`flex h-[52px] w-fit items-center md:h-14 ${
               scrolled && !open
-                ? `px-5 md:px-6 ${glassIsland(true)}`
+                ? `px-5 md:px-6 ${glassIsland(true, dark)}`
                 : "border border-transparent px-1 transition-all duration-500"
             }`}
           >
-            {scrolled && !open && <Sheen />}
-            <img src={logo} alt="Refocus AI" className="relative h-[18px] w-auto md:h-[22px]" />
+            {scrolled && !open && <Sheen dark={dark} />}
+            <img src={dark ? logoWhite : logo} alt="Refocus AI" className="relative h-[18px] w-auto md:h-[22px]" />
           </a>
 
-          <DesktopNav active={active} scrolled={scrolled} progress={progress} />
+          <DesktopNav active={active} scrolled={scrolled} progress={progress} dark={dark} />
 
           {/* CTA island (desktop) */}
           <div className="hidden justify-self-end lg:block">
