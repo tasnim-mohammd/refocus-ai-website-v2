@@ -1,6 +1,6 @@
 import { Check, Sparkles } from "lucide-react";
-import { CONTACT, SERVICES } from "../content";
-import { Button, Container, SectionHeading } from "./ui";
+import { SERVICES } from "../content";
+import { Container, SectionHeading } from "./ui";
 
 export function Services() {
   return (
@@ -11,7 +11,6 @@ export function Services() {
           label="What we do"
           title="Our AI Services"
           aside="Comprehensive services tailored to drive measurable business value."
-          action={<Button href={`mailto:${CONTACT.bookingEmail}`}>Talk to an AI Expert</Button>}
         />
 
         <div className="grid gap-4 md:grid-cols-3 md:gap-6">
