@@ -8,7 +8,7 @@ export function Hero() {
       {/* full-bleed photo stage */}
       <div
         id="hero-stage"
-        className="relative isolate flex min-h-[760px] items-center overflow-hidden bg-navy pt-32 pb-20 md:min-h-[min(940px,100svh)] md:pt-40 md:pb-28"
+        className="relative isolate flex min-h-[860px] flex-col overflow-hidden bg-navy pt-32 md:min-h-[max(860px,100svh)] md:pt-40"
       >
         <img
           src={heroBg}
@@ -26,7 +26,7 @@ export function Hero() {
         />
         <div aria-hidden className="glow -bottom-40 -left-20 -z-10 h-[420px] w-[520px] bg-[#4f46e5]/45" />
 
-        <Container>
+        <Container className="flex flex-1 items-center pb-16 md:pb-20">
           <div className="max-w-[640px]">
             {/* copy */}
             <div className="flex flex-col gap-6 md:gap-7">
@@ -58,27 +58,37 @@ export function Hero() {
             </div>
           </div>
         </Container>
-      </div>
 
-      {/* clients */}
-      <Container>
-        <div className="flex flex-col gap-6 py-10 md:flex-row md:items-center md:gap-12 md:py-12">
-          <div className="shrink-0 text-center md:text-left">
-            <p className="text-[12px] font-semibold tracking-[0.14em] text-subtle uppercase">Our clients</p>
-            <p className="text-[15px] font-medium text-ink">Trusted by Industry Leaders</p>
-          </div>
-          <ul className="grid flex-1 gap-3 sm:grid-cols-3 md:gap-6">
-            {CLIENTS.map((c) => (
-              <li
-                key={c.name}
-                className="flex h-16 items-center justify-center rounded-2xl bg-ink/[0.035] px-6 transition-colors hover:bg-ink/[0.06]"
-              >
-                <img src={c.logo} alt={c.name} className={`${c.height} w-auto max-w-full opacity-80`} />
-              </li>
-            ))}
-          </ul>
+        {/* clients — trusted-by band at the foot of the hero */}
+        <div className="border-t border-white/10 bg-[rgb(10_22_48/0.45)] backdrop-blur-md">
+          <Container className="flex flex-col gap-6 py-7 md:flex-row md:items-center md:gap-10 md:py-9">
+            <div className="flex shrink-0 flex-col gap-1.5 md:w-[230px]">
+              <p className="text-[12px] font-semibold tracking-[0.14em] text-[#9ec5ff] uppercase">Our clients</p>
+              <p className="text-[15px] leading-snug font-medium text-white/85 md:text-base">
+                Trusted by industry leaders across the GCC
+              </p>
+            </div>
+            <ul className="grid flex-1 divide-y divide-white/10 border-y border-white/10 md:grid-cols-3 md:divide-x md:divide-y-0 md:border-x md:border-y-0">
+              {CLIENTS.map((c, i) => (
+                <li
+                  key={c.name}
+                  style={{ animationDelay: `${0.5 + i * 0.12}s` }}
+                  className="group flex items-center justify-between gap-4 py-5 motion-safe:animate-[fadeUp_.8s_ease_both] md:flex-col md:justify-center md:gap-4 md:px-6 md:py-2"
+                >
+                  <img
+                    src={c.logo}
+                    alt={c.name}
+                    className={`${c.height} w-auto max-w-[60%] object-contain opacity-70 transition-all duration-500 group-hover:scale-[1.04] group-hover:opacity-100 md:max-w-[85%]`}
+                  />
+                  <span className="text-right text-[11px] font-semibold tracking-[0.16em] whitespace-nowrap text-white/45 uppercase md:text-center transition-colors duration-500 group-hover:text-white/80">
+                    {c.sector}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </Container>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

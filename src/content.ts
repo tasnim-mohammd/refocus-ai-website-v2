@@ -5,9 +5,9 @@ import nealImg from "./assets/images/neal.webp";
 import sheebaImg from "./assets/images/sheeba.webp";
 import damianImg from "./assets/images/damian.webp";
 import propertyFinderImg from "./assets/images/property-finder.webp";
-import propertyFinderLogo from "./assets/logos/property-finder.svg";
-import mubadalaLogo from "./assets/logos/mubadala.svg";
-import nationalFinanceLogo from "./assets/logos/national-finance.svg";
+import propertyFinderLogo from "./assets/logos/property-finder-white.svg";
+import mubadalaLogo from "./assets/logos/mubadala-white.svg";
+import nationalFinanceLogo from "./assets/logos/national-finance-white.svg";
 
 export const CONTACT = {
   email: "contact@refocus-ai.com",
@@ -27,9 +27,9 @@ export const NAV_LINKS = [
 ];
 
 export const CLIENTS = [
-  { name: "Property Finder", logo: propertyFinderLogo, height: "h-9" },
-  { name: "Mubadala", logo: mubadalaLogo, height: "h-6" },
-  { name: "National Finance", logo: nationalFinanceLogo, height: "h-7" },
+  { name: "Property Finder", logo: propertyFinderLogo, height: "h-9 md:h-11", sector: "Real Estate Tech" },
+  { name: "Mubadala", logo: mubadalaLogo, height: "h-6 md:h-7", sector: "Investment" },
+  { name: "National Finance", logo: nationalFinanceLogo, height: "h-7 md:h-9", sector: "Financial Services" },
 ];
 
 export const SERVICES = [
