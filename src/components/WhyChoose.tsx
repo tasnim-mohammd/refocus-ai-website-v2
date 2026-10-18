@@ -102,8 +102,8 @@ export function WhyChoose() {
                     className="absolute inset-0 rounded-full border border-white/25 motion-safe:animate-[ringPulse_3.6s_ease-in-out_infinite]"
                   />
                 ))}
-                <span className="absolute inset-[34%] rounded-full bg-white/15 shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_20px_40px_-10px_rgb(30_20_90/0.5)] backdrop-blur-sm" />
-                <ShieldCheck className="relative size-12 text-white md:size-14" strokeWidth={1.4} />
+                <span className="absolute inset-[34%] rounded-full bg-white/10 shadow-[inset_0_1px_0_rgb(255_255_255/0.25),0_16px_32px_-12px_rgb(30_20_90/0.35)] backdrop-blur-sm" />
+                <ShieldCheck className="relative size-11 text-white/75 md:size-12" strokeWidth={1.2} />
                 <span className="absolute top-[18%] right-[22%] size-2 rounded-full bg-white/80 shadow-[0_0_12px_rgb(255_255_255/0.9)]" />
                 <span className="absolute bottom-[24%] left-[16%] size-1.5 rounded-full bg-white/60" />
               </div>
