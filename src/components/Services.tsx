@@ -30,7 +30,7 @@ export function Services() {
                     loading="lazy"
                     className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
-                  <span className="absolute top-4 left-4 rounded-full bg-white/85 px-3 py-1.5 text-[13px] font-semibold tracking-[0.14em] text-ink backdrop-blur">
+                  <span className="absolute top-4 left-4 rounded-full bg-navy/30 px-3 py-1.5 text-[13px] font-semibold tracking-[0.14em] text-white ring-1 ring-white/30 backdrop-blur-md [text-shadow:0_1px_6px_rgb(0_0_0/0.35)] shadow-[inset_0_1px_0_rgb(255_255_255/0.25),0_6px_18px_-6px_rgb(0_0_0/0.45)]">
                     0{i + 1}
                   </span>
                   {dark && (

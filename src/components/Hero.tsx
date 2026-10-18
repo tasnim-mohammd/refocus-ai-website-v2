@@ -8,6 +8,7 @@ export function Hero() {
       {/* full-bleed photo stage */}
       <div
         id="hero-stage"
+        data-header-dark
         className="relative isolate flex min-h-[860px] flex-col overflow-hidden bg-navy pt-32 md:min-h-[max(860px,100svh)] md:pt-40"
       >
         <img

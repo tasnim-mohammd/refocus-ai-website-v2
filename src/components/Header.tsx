@@ -40,8 +40,13 @@ function useScroll() {
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       // The header sits on the dark photo hero until the hero's bottom edge passes under it.
-      const stage = document.getElementById("hero-stage");
-      const overDark = stage ? stage.getBoundingClientRect().bottom > 96 : false;
+      // Dark mode whenever the header's vertical centre sits over a dark block
+      // (hero photo, capabilities band, closing CTA), marked with data-header-dark.
+      const probe = window.innerWidth >= 768 ? 52 : 46;
+      const overDark = [...document.querySelectorAll<HTMLElement>("[data-header-dark]")].some((el) => {
+        const r = el.getBoundingClientRect();
+        return r.top <= probe && r.bottom >= probe;
+      });
       setState({ scrolled: window.scrollY > 24, progress: max > 0 ? Math.min(1, window.scrollY / max) : 0, overDark });
     };
     onScroll();
@@ -263,13 +268,8 @@ export function Header() {
             href="#home"
             aria-label="Refocus AI home"
             onClick={() => setOpen(false)}
-            className={`flex h-[52px] w-fit items-center md:h-14 ${
-              scrolled && !open
-                ? `px-5 md:px-6 ${glassIsland(true, dark)}`
-                : "border border-transparent px-1 transition-all duration-500"
-            }`}
+            className="flex h-[52px] w-fit items-center px-1 md:h-14"
           >
-            {scrolled && !open && <Sheen dark={dark} />}
             <img src={dark ? logoWhite : logo} alt="Refocus AI" className="relative h-[18px] w-auto md:h-[22px]" />
           </a>
 

@@ -5,7 +5,7 @@ export function Capabilities() {
   return (
     <section id="capabilities" className="py-10 md:py-16">
       <Container>
-        <div className="relative overflow-hidden rounded-[28px] bg-navy px-6 py-10 md:rounded-[40px] md:p-[72px]">
+        <div data-header-dark className="relative overflow-hidden rounded-[28px] bg-navy px-6 py-10 md:rounded-[40px] md:p-[72px]">
           <div aria-hidden className="glow -top-56 right-[-80px] h-[520px] w-[640px] bg-accent/60" />
           <div aria-hidden className="glow -bottom-40 -left-32 h-[420px] w-[480px] bg-violet/45" />
           <div aria-hidden className="absolute inset-0 hidden justify-around md:flex">

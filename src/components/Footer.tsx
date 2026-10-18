@@ -15,7 +15,7 @@ export function ContactCta() {
   return (
     <section id="contact" className="pb-16 md:pb-24">
       <Container>
-        <div className="relative overflow-hidden rounded-[28px] bg-navy px-6 py-10 md:rounded-[40px] md:p-20">
+        <div data-header-dark className="relative overflow-hidden rounded-[28px] bg-navy px-6 py-10 md:rounded-[40px] md:p-20">
           <div aria-hidden className="glow top-[-60px] right-[-120px] h-[460px] w-[560px] bg-accent/70" />
           <div aria-hidden className="glow -bottom-40 right-10 h-[380px] w-[420px] bg-violet/50" />
           <div aria-hidden className="absolute top-1/2 right-[200px] hidden md:block">
