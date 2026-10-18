@@ -1,92 +1,6 @@
-import { TrendingUp } from "lucide-react";
 import heroBg from "../assets/images/hero-bg.webp";
 import { CLIENTS, CONTACT } from "../content";
 import { Button, Container } from "./ui";
-
-const BARS = [36, 52, 42, 64, 48, 70, 58, 80];
-const KPIS = [
-  ["99.8%", "Accuracy"],
-  ["4.2B", "Nodes"],
-  ["12ms", "Latency"],
-];
-
-/** Solid white floating card shared by the hero widgets. */
-const CARD = "rounded-[22px] bg-white/95 backdrop-blur-xl ring-1 ring-white/60 shadow-[0_30px_70px_-20px_rgb(0_0_0/0.45)]";
-
-function LiveDot() {
-  return (
-    <span className="relative flex size-2">
-      <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#22c55e] opacity-60" />
-      <span className="relative inline-flex size-2 rounded-full bg-[#22c55e]" />
-    </span>
-  );
-}
-
-function StatusChip({ className = "" }: { className?: string }) {
-  return (
-    <div
-      className={`flex w-fit items-center gap-2.5 rounded-full border border-white/25 bg-white/15 py-2 pr-4 pl-3 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.25)] backdrop-blur-xl ${className}`}
-    >
-      <LiveDot />
-      <span className="text-[13px] font-medium">
-        System Status: <span className="text-[#86efac]">Optimized</span>
-      </span>
-    </div>
-  );
-}
-
-function ProjectsCard({ className = "" }: { className?: string }) {
-  return (
-    <div className={`${CARD} flex w-fit items-center gap-4 py-4 pr-6 pl-4 ${className}`}>
-      <span className="grid size-12 place-items-center rounded-2xl bg-brand-gradient text-white shadow-[0_8px_20px_-6px_rgb(37_99_235/0.6)]">
-        <TrendingUp className="size-[22px]" strokeWidth={2} />
-      </span>
-      <div>
-        <p className="font-display text-[32px] leading-none font-semibold tracking-[-0.04em] text-ink">25+</p>
-        <p className="mt-1 text-[13px] text-muted">Successful Projects</p>
-      </div>
-    </div>
-  );
-}
-
-function PredictiveEngine({ className = "", compact = false }: { className?: string; compact?: boolean }) {
-  return (
-    <div className={`${CARD} p-5 ${className}`}>
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-[15px] font-semibold text-ink">Predictive Engine</p>
-          <p className="text-[13px] text-muted">Live AI Processing</p>
-        </div>
-        <span className="flex items-center gap-1.5 rounded-full bg-[#f0fdf4] px-2.5 py-1 text-xs font-medium text-[#15803d] ring-1 ring-[#bbf7d0]">
-          <LiveDot />
-          Live
-        </span>
-      </div>
-      {!compact && (
-        <div className="mt-5 flex h-16 items-end gap-1.5" aria-hidden>
-          {BARS.map((h, i) => (
-            <span
-              key={i}
-              style={{ height: `${h}%`, animationDelay: `${i * -0.35}s` }}
-              className={`flex-1 origin-bottom rounded-[5px] motion-safe:animate-[bar_2.8s_ease-in-out_infinite_alternate] ${
-                i === BARS.length - 1 ? "bg-brand-gradient" : "bg-accent-soft"
-              }`}
-            />
-          ))}
-        </div>
-      )}
-      <dl className="mt-4 grid grid-cols-3 border-t border-line pt-4">
-        {KPIS.map(([v, l], i) => (
-          <div key={l} className={i ? "border-l border-line pl-4" : ""}>
-            <dt className="sr-only">{l}</dt>
-            <dd className="font-display text-lg font-semibold tracking-tight text-ink">{v}</dd>
-            <dd className="text-xs text-muted">{l}</dd>
-          </div>
-        ))}
-      </dl>
-    </div>
-  );
-}
 
 export function Hero() {
   return (
@@ -113,7 +27,7 @@ export function Hero() {
         <div aria-hidden className="glow -bottom-40 -left-20 -z-10 h-[420px] w-[520px] bg-[#4f46e5]/45" />
 
         <Container>
-          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,600px)_1fr]">
+          <div className="max-w-[640px]">
             {/* copy */}
             <div className="flex flex-col gap-6 md:gap-7">
               <p className="flex items-center gap-4 motion-safe:animate-[fadeUp_.7s_ease_both]">
@@ -126,7 +40,7 @@ export function Hero() {
                 Refocus{" "}
                 <span className="bg-gradient-to-r from-[#7db4ff] to-[#b69cff] bg-clip-text text-transparent">AI</span>
               </h1>
-              <p className="font-display text-[22px] leading-[1.35] font-medium tracking-[-0.01em] text-white motion-safe:animate-[fadeUp_.7s_.16s_ease_both] md:text-[28px]">
+              <p className="max-w-[560px] font-display text-[22px] leading-[1.35] font-medium tracking-[-0.01em] text-white motion-safe:animate-[fadeUp_.7s_.16s_ease_both] md:text-[28px]">
                 Turn your data into smarter decisions with AI-driven solutions.
               </p>
               <p className="max-w-[520px] text-base leading-relaxed text-white/70 motion-safe:animate-[fadeUp_.7s_.24s_ease_both] md:text-[19px]">
@@ -141,25 +55,6 @@ export function Hero() {
                   Talk to an AI Expert
                 </Button>
               </div>
-            </div>
-
-            {/* floating widgets — desktop */}
-            <div className="relative hidden h-[480px] lg:block">
-              <div className="absolute top-0 right-[40px] motion-safe:animate-[fadeUp_.9s_.4s_ease_both]">
-                <StatusChip className="motion-safe:animate-[float_7s_ease-in-out_-2s_infinite]" />
-              </div>
-              <div className="absolute top-[70px] left-0 motion-safe:animate-[fadeUp_.9s_.55s_ease_both]">
-                <ProjectsCard className="motion-safe:animate-[float_6s_ease-in-out_infinite]" />
-              </div>
-              <div className="absolute bottom-0 left-[40px] w-[300px] motion-safe:animate-[fadeUp_.9s_.7s_ease_both]">
-                <PredictiveEngine className="motion-safe:animate-[float_8s_ease-in-out_-1s_infinite]" />
-              </div>
-            </div>
-
-            {/* widgets — mobile/tablet */}
-            <div className="flex flex-col gap-3 lg:hidden">
-              <StatusChip />
-              <PredictiveEngine compact />
             </div>
           </div>
         </Container>
