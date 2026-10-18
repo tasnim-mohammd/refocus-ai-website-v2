@@ -24,8 +24,10 @@ export function Header() {
   return (
     <header className="fixed inset-x-0 top-4 z-50 px-4 md:top-7">
       <div
-        className={`glass mx-auto flex h-[60px] max-w-[1200px] items-center justify-between rounded-full pr-2 pl-5 transition-shadow duration-300 md:h-[72px] md:pl-7 ${
-          scrolled ? "shadow-[0_16px_40px_rgb(10_22_48/0.14)]" : ""
+        className={`mx-auto flex h-[60px] max-w-[1200px] items-center justify-between rounded-full border pr-2 pl-5 backdrop-blur-2xl transition-all duration-300 md:h-[72px] md:pl-7 ${
+          scrolled
+            ? "border-line bg-white/[0.97] shadow-[0_16px_40px_-12px_rgb(10_22_48/0.22)]"
+            : "border-white/90 bg-white/70 shadow-[0_20px_48px_rgb(10_22_48/0.1)]"
         }`}
       >
         <a href="#home" aria-label="Refocus AI home" className="shrink-0">
